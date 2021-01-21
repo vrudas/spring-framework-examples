@@ -1,0 +1,9 @@
+group("io.sfexamples")
+
+ext.slf4jVersion = "1.7.30"
+ext.junitJupiterVersion = "5.6.0"
+
+wrapper {
+    gradleVersion = "6.7.1"
+    distributionType = Wrapper.DistributionType.ALL
+}
