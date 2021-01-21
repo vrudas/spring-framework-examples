@@ -13,6 +13,8 @@ subprojects {
 
     group 'io.sfexamples'
 
+    sourceCompatibility = JavaVersion.VERSION_15
+
     repositories {
         jcenter()
     }
