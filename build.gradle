@@ -1,6 +1,6 @@
 group("io.sfexamples")
 
-ext.slf4jVersion = "1.7.30"
+ext.springVersion = "5.3.3"
 ext.junitJupiterVersion = "5.6.0"
 
 wrapper {
