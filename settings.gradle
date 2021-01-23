@@ -2,3 +2,4 @@ rootProject.name = 'spring-framework-examples'
 
 include 'example-00-hello'
 include 'example-01-bean-factory'
+include 'example-02-bean-definition'
