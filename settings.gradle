@@ -6,4 +6,5 @@ include 'example-02-bean-definition'
 include 'example-03-bean-scope'
 include 'example-04-bean-lifecycle'
 include 'example-05-dependency-injection'
+include 'example-06-annotation-config'
 
