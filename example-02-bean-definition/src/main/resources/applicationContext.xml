@@ -5,7 +5,7 @@
 
     <bean
         id="firstNote"
-        class="io.sfexamples.beandefinition.Note"
+        class="io.sfe.beandefinition.Note"
         init-method="init"
     >
         <property name="text" value="Let's party!"/>
@@ -13,7 +13,7 @@
 
     <bean
         id="secondNote"
-        class="io.sfexamples.beandefinition.Note"
+        class="io.sfe.beandefinition.Note"
         init-method="init"
     >
         <property name="text" value="Let's party twice!"/>
@@ -21,7 +21,7 @@
 
     <bean
         id="noteService"
-        class="io.sfexamples.beandefinition.NoteService"
+        class="io.sfe.beandefinition.NoteService"
         init-method="init"
         lazy-init="true"
     >

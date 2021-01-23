@@ -1,4 +1,4 @@
-package io.sfexamples.beandefinition;
+package io.sfe.beandefinition;
 
 import java.util.Objects;
 

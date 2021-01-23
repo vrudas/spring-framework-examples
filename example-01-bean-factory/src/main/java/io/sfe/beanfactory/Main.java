@@ -1,4 +1,4 @@
-package io.sfexamples.beanfactory;
+package io.sfe.beanfactory;
 
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;

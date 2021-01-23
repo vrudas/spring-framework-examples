@@ -1,4 +1,4 @@
-package io.sfexamples.hello;
+package io.sfe.hello;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

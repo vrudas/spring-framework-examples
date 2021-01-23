@@ -1,4 +1,4 @@
-package io.sfexamples.beandefinition;
+package io.sfe.beandefinition;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

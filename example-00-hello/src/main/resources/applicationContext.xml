@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="helloWorldNote" class="io.sfexamples.hello.Note">
+    <bean id="helloWorldNote" class="io.sfe.hello.Note">
         <property name="text" value="Hello World in a Spring!"/>
     </bean>
 </beans>

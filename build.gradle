@@ -1,4 +1,4 @@
-group("io.sfexamples")
+group("io.sfe")
 
 ext.springVersion = "5.3.3"
 ext.junitJupiterVersion = "5.6.0"
@@ -11,7 +11,7 @@ wrapper {
 subprojects {
     apply plugin: 'java'
 
-    group 'io.sfexamples'
+    group 'io.sfe'
 
     sourceCompatibility = JavaVersion.VERSION_15
 

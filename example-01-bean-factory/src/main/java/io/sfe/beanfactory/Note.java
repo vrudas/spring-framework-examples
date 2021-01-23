@@ -1,4 +1,4 @@
-package io.sfexamples.hello;
+package io.sfe.beanfactory;
 
 import java.util.Objects;
 
