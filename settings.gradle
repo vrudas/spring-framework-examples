@@ -1,3 +1,4 @@
-rootProject.name = "spring-framework-examples"
+rootProject.name = 'spring-framework-examples'
 
-include("example-00-hello")
+include 'example-00-hello'
+include 'example-01-bean-factory'
