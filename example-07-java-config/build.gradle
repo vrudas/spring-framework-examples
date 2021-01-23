@@ -1,0 +1,4 @@
+dependencies {
+    implementation "org.springframework:spring-context:${springVersion}"
+    implementation "javax.annotation:javax.annotation-api:${javaxAnnotationApiVersion}"
+}
