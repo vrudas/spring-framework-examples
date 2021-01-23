@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="author" class="io.sfe.dependencyinjection.Author">
+        <constructor-arg name="authorId" value="1"/>
+    </bean>
+
+    <bean id="setterNote" class="io.sfe.dependencyinjection.Note">
+        <property name="author" ref="author"/>
+        <property name="text" value="Text"/>
+    </bean>
+
+    <bean id="constructorNote" class="io.sfe.dependencyinjection.Note">
+        <constructor-arg name="author" ref="author" />
+    </bean>
+
+</beans>
