@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="noteSingleton" class="io.sfe.beanscope.Note" scope="singleton">
+        <property name="text" value="Text 1"/>
+    </bean>
+
+    <bean id="notePrototype" class="io.sfe.beanscope.Note" scope="prototype">
+        <property name="text" value="Text 2"/>
+    </bean>
+
+</beans>
