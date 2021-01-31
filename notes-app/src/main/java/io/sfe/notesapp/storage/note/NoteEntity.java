@@ -1,9 +1,11 @@
 package io.sfe.notesapp.storage.note;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
 
+@Table("NOTE")
 class NoteEntity {
 
     @Id

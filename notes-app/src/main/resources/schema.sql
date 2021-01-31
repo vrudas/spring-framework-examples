@@ -1,0 +1,5 @@
+CREATE TABLE note
+(
+    id   INT NOT NULL AUTO_INCREMENT,
+    text VARCHAR NOT NULL
+);
