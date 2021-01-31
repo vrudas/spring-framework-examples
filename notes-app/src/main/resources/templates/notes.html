@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+</head>
+<body>
+<h2>List of all notes: </h2>
+
+<table id="notes-table">
+    <caption>All notes</caption>
+    <tr>
+        <th id="note-index-col">Note index</th>
+        <th id="note-text-col">Note text</th>
+    </tr>
+    <tr th:each="note, noteStat : ${notes}">
+        <td th:text="${noteStat.index}">0</td>
+        <td th:text="${note.text}">text</td>
+    </tr>
+</table>
+
+</body>
+</html>
