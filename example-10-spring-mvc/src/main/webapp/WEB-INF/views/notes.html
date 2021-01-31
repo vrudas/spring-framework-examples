@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Calendar</title>
@@ -11,13 +11,15 @@
 </h2>
 
 <table>
-    <th>Note index</th>
-    <th>Note text</th>
+    <tr>
+        <th>Note index</th>
+        <th>Note text</th>
+    </tr>
     <!--/*@thymesVar id="notes" type="java.util.List<io.sfe.springmvc.Note>"*/-->
     <!--/*@thymesVar id="note" type="io.sfe.springmvc.Note"*/-->
     <tr th:each="note, noteStat : ${notes}">
-        <td th:text="${noteStat.index}"/>
-        <td th:text="${note.text}"/>
+        <td th:text="${noteStat.index}">0</td>
+        <td th:text="${note.text}">text</td>
     </tr>
 </table>
 
