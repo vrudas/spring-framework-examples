@@ -2,7 +2,6 @@ package io.sfe.notesapp.domain.note;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public interface NoteService {
 
@@ -10,7 +9,7 @@ public interface NoteService {
 
     List<Note> findAll();
 
-    Optional<Note> findById(int id);
+    Note findById(int id);
 
     class SaveNoteCommand {
         private final String text;

@@ -5,7 +5,6 @@ import io.sfe.notesapp.domain.note.NoteService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
@@ -37,8 +36,9 @@ public class DbNoteService implements NoteService {
     }
 
     @Override
-    public Optional<Note> findById(int id) {
+    public Note findById(int id) {
         return noteRepository.findById(id)
-            .map(noteEntity -> Note.of(noteEntity.getId(), noteEntity.getText()));
+            .map(noteEntity -> Note.of(noteEntity.getId(), noteEntity.getText()))
+            .orElseThrow();
     }
 }
