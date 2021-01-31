@@ -4,19 +4,19 @@ import java.util.Objects;
 
 public class NoteDto {
 
-    private final Integer id;
+    private final int id;
     private final String text;
 
     public static NoteDto of(int id, String text) {
         return new NoteDto(id, text);
     }
 
-    private NoteDto(Integer id, String text) {
+    private NoteDto(int id, String text) {
         this.id = id;
         this.text = text;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -29,7 +29,7 @@ public class NoteDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NoteDto noteDto = (NoteDto) o;
-        return Objects.equals(id, noteDto.id) && Objects.equals(text, noteDto.text);
+        return id == noteDto.id && Objects.equals(text, noteDto.text);
     }
 
     @Override
