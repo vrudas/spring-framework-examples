@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+</head>
+<body>
+<h2>Current time:
+    <!--/*@thymesVar id="dateTime" type="java.lang.String"*/-->
+    <span th:text="${dateTime}">2011-12-03T10:15:30</span>
+</h2>
+
+<table>
+    <th>Note index</th>
+    <th>Note text</th>
+    <!--/*@thymesVar id="notes" type="java.util.List<io.sfe.springmvc.Note>"*/-->
+    <!--/*@thymesVar id="note" type="io.sfe.springmvc.Note"*/-->
+    <tr th:each="note, noteStat : ${notes}">
+        <td th:text="${noteStat.index}"/>
+        <td th:text="${note.text}"/>
+    </tr>
+</table>
+
+</body>
+</html>
