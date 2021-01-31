@@ -1,6 +1,5 @@
 package io.sfe.notesapp.web.note;
 
-import io.sfe.notesapp.domain.note.Note;
 import io.sfe.notesapp.domain.note.NoteService;
 import io.sfe.notesapp.domain.note.NoteService.SaveNoteCommand;
 import org.springframework.http.MediaType;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 @Controller
 @RequestMapping("/notes")
@@ -27,14 +26,12 @@ public class NoteController {
         consumes = MediaType.ALL_VALUE
     )
     public String allNotes(Model model) {
-        model.addAttribute(
-            "notes",
-            List.of(
-                Note.of(1, "note1"),
-                Note.of(2, "note2"),
-                Note.of(3, "note3")
-            )
-        );
+        var notes = noteService.findAll()
+            .stream()
+            .map(note -> NoteDto.of(note.getId(), note.getText()))
+            .collect(toUnmodifiableList());
+
+        model.addAttribute("notes", notes);
 
         return "note/notes";
     }
