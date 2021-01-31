@@ -1,17 +1,24 @@
 package io.sfe.notesapp.web.note;
 
 import io.sfe.notesapp.domain.note.Note;
+import io.sfe.notesapp.domain.note.NoteService;
+import io.sfe.notesapp.domain.note.NoteService.SaveNoteCommand;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/notes")
 public class NoteController {
+
+    private final NoteService noteService;
+
+    public NoteController(NoteService noteService) {
+        this.noteService = noteService;
+    }
 
     @RequestMapping(
         path = {"", "/"},
@@ -30,5 +37,18 @@ public class NoteController {
         );
 
         return "note/notes";
+    }
+
+    @GetMapping("/create-note")
+    public String createNotePage() {
+        return "note/create-note";
+    }
+
+    @PostMapping
+    public String saveNote(@RequestParam(name = "text") String text) {
+        var saveNoteCommand = SaveNoteCommand.of(text);
+        noteService.save(saveNoteCommand);
+
+        return "redirect:/notes";
     }
 }

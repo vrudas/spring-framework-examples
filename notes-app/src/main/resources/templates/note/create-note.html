@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a note</title>
+</head>
+<body>
+<form action="#" th:action="@{/notes}" method="post">
+    <p>
+        <label for="text">Text:</label>
+        <input id="text" type="text" name="text"/>
+    </p>
+    <p><input type="submit" value="Submit"/><input type="reset" value="Reset"/></p>
+</form>
+</body>
+</html>
