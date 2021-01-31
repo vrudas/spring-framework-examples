@@ -15,9 +15,9 @@ public class NoteController {
         model.addAttribute(
             "notes",
             List.of(
-                new Note("note1"),
-                new Note("note2"),
-                new Note("note3")
+                Note.of(1, "note1"),
+                Note.of(2, "note2"),
+                Note.of(3, "note3")
             )
         );
 
