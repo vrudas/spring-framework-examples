@@ -8,4 +8,5 @@ include 'example-04-bean-lifecycle'
 include 'example-05-dependency-injection'
 include 'example-06-annotation-config'
 include 'example-07-java-config'
+include 'example-08-properties'
 
