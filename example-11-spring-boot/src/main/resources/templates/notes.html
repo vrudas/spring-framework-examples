@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+</head>
+<body>
+<h2>Current time:
+    <span th:text="${dateTime}">2011-12-03T10:15:30</span>
+</h2>
+
+<table>
+    <tr>
+        <th>Note index</th>
+        <th>Note text</th>
+    </tr>
+    <tr th:each="note, noteStat : ${notes}">
+        <td th:text="${noteStat.index}">0</td>
+        <td th:text="${note.text}">text</td>
+    </tr>
+</table>
+
+</body>
+</html>
