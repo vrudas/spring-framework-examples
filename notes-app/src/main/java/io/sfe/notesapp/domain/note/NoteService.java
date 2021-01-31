@@ -1,10 +1,13 @@
 package io.sfe.notesapp.domain.note;
 
+import java.util.List;
 import java.util.Objects;
 
 public interface NoteService {
 
     Note save(SaveNoteCommand saveNoteCommand);
+
+    List<Note> findAll();
 
     class SaveNoteCommand {
         private final String text;

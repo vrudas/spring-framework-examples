@@ -4,6 +4,11 @@ import io.sfe.notesapp.domain.note.Note;
 import io.sfe.notesapp.domain.note.NoteService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.StreamSupport;
+
+import static java.util.stream.Collectors.toUnmodifiableList;
+
 @Service
 public class DbNoteService implements NoteService {
 
@@ -19,5 +24,13 @@ public class DbNoteService implements NoteService {
         NoteEntity savedNote = noteRepository.save(noteToSave);
 
         return Note.of(savedNote.getId(), savedNote.getText());
+    }
+
+    @Override
+    public List<Note> findAll() {
+        Iterable<NoteEntity> allNotes = noteRepository.findAll();
+        return StreamSupport.stream(allNotes.spliterator(), false)
+            .map(noteEntity -> Note.of(noteEntity.getId(), noteEntity.getText()))
+            .collect(toUnmodifiableList());
     }
 }
