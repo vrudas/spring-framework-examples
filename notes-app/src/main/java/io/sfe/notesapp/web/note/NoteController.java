@@ -1,5 +1,6 @@
 package io.sfe.notesapp.web.note;
 
+import io.sfe.notesapp.domain.note.Note;
 import io.sfe.notesapp.domain.note.NoteService;
 import io.sfe.notesapp.domain.note.NoteService.SaveNoteCommand;
 import org.springframework.http.MediaType;
@@ -47,5 +48,18 @@ public class NoteController {
         noteService.save(saveNoteCommand);
 
         return "redirect:/notes";
+    }
+
+    @GetMapping("/{noteId}")
+    public String findNoteById(
+        @PathVariable("noteId") int noteId,
+        Model model
+    ) {
+        Note noteById = noteService.findById(noteId);
+        NoteDto noteDto = NoteDto.of(noteById.getId(), noteById.getText());
+
+        model.addAttribute("note", noteDto);
+
+        return "note/note";
     }
 }
