@@ -13,8 +13,8 @@
         <th id="note-index-col">Note index</th>
         <th id="note-text-col">Note text</th>
     </tr>
-    <tr th:each="note, noteStat : ${notes}">
-        <td th:text="${noteStat.index}">0</td>
+    <tr th:each="note : ${notes}">
+        <td th:text="${note.id}">0</td>
         <td th:text="${note.text}">text</td>
     </tr>
 </table>
