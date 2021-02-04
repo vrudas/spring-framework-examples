@@ -69,18 +69,26 @@ public class NoteController {
         return "redirect:/notes";
     }
 
+    @GetMapping("{noteId}/update-note")
+    public String updateNotePage(
+        @PathVariable int noteId,
+        Model model
+    ) {
+        Note note = noteService.findById(noteId);
+        NoteDto noteDto = NoteDto.of(note.getId(), note.getText());
+
+        model.addAttribute("note", noteDto);
+
+        return "note/update-note";
+    }
+
     @PutMapping("/{noteId}")
     @ResponseStatus(HttpStatus.OK)
     public String updateNoteById(
         @PathVariable("noteId") int noteId,
-        @RequestParam("text") String text,
-        Model model
+        @RequestParam("text") String text
     ) {
-        Note updatedNote = noteService.updateNote(noteId, text);
-
-        NoteDto noteDto = NoteDto.of(updatedNote.getId(), updatedNote.getText());
-        model.addAttribute("note", noteDto);
-
-        return "note/note";
+        noteService.updateNote(noteId, text);
+        return "redirect:/notes/" + noteId;
     }
 }

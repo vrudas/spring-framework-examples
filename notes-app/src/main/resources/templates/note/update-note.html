@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update a note</title>
+</head>
+<body>
+<form id="update-note-form" action="#" th:action="@{/notes/__${note.id}__}" method="put">
+    <input id="id" type="hidden" name="id" value="0" th:value="${note.id}">
+    <p>
+        <label for="text">Text:</label>
+        <input id="text" type="text" name="text" th:value="${note.text}"/>
+    </p>
+    <p><input type="submit" value="Submit"/><input type="reset" value="Reset"/></p>
+</form>
+
+<script>
+    window.addEventListener("load", () => {
+        function sendData() {
+            const request = new XMLHttpRequest();
+
+            // Bind the FormData object and the form element
+            const formData = new FormData(form);
+
+            // Define what happens on successful data submission
+            request.addEventListener("load", event => {
+                window.location = event.target.responseURL;
+            });
+
+            // Define what happens in case of error
+            request.addEventListener("error", event => {
+                alert("Oops! Something went wrong.");
+            });
+
+            // Set up our request
+            request.open("PUT", form.action);
+
+            // The data sent is what the user provided in the form
+            request.send(formData);
+        }
+
+        const form = document.getElementById("update-note-form");
+
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+
+            sendData();
+        });
+    });
+</script>
+</body>
+</html>
