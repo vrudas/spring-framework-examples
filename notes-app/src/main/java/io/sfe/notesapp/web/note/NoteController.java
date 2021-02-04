@@ -3,6 +3,7 @@ package io.sfe.notesapp.web.note;
 import io.sfe.notesapp.domain.note.Note;
 import io.sfe.notesapp.domain.note.NoteService;
 import io.sfe.notesapp.domain.note.NoteService.SaveNoteCommand;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,5 +62,12 @@ public class NoteController {
         model.addAttribute("note", noteDto);
 
         return "note/note";
+    }
+
+    @DeleteMapping("/{noteId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String deleteNoteById(@PathVariable("noteId") int noteId) {
+        noteService.delete(noteId);
+        return "redirect:/notes";
     }
 }
