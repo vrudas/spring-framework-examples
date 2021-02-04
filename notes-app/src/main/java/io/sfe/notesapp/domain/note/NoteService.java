@@ -11,6 +11,8 @@ public interface NoteService {
 
     Note findById(int id);
 
+    void delete(int id);
+
     class SaveNoteCommand {
         private final String text;
 

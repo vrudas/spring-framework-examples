@@ -41,4 +41,9 @@ public class NoteDbService implements NoteService {
             .map(noteEntity -> Note.of(noteEntity.getId(), noteEntity.getText()))
             .orElseThrow();
     }
+
+    @Override
+    public void delete(int id) {
+        noteRepository.deleteById(id);
+    }
 }
