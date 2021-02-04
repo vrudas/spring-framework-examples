@@ -68,4 +68,19 @@ public class NoteController {
         noteService.delete(noteId);
         return "redirect:/notes";
     }
+
+    @PutMapping("/{noteId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String updateNoteById(
+        @PathVariable("noteId") int noteId,
+        @RequestParam("text") String text,
+        Model model
+    ) {
+        Note updatedNote = noteService.updateNote(noteId, text);
+
+        NoteDto noteDto = NoteDto.of(updatedNote.getId(), updatedNote.getText());
+        model.addAttribute("note", noteDto);
+
+        return "note/note";
+    }
 }
