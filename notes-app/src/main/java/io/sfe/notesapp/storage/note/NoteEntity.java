@@ -6,13 +6,14 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.Objects;
 
 @Table("NOTE")
+public
 class NoteEntity {
 
     @Id
     private final Integer id;
     private final String text;
 
-    static NoteEntity of(String text) {
+    public static NoteEntity of(String text) {
         return new NoteEntity(null, text);
     }
 
@@ -21,11 +22,11 @@ class NoteEntity {
         this.text = text;
     }
 
-    Integer getId() {
+    public Integer getId() {
         return id;
     }
 
-    String getText() {
+    public String getText() {
         return text;
     }
 
