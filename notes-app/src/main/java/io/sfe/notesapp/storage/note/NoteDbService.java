@@ -10,11 +10,11 @@ import java.util.stream.StreamSupport;
 import static java.util.stream.Collectors.toUnmodifiableList;
 
 @Service
-public class DbNoteService implements NoteService {
+public class NoteDbService implements NoteService {
 
     private final NoteRepository noteRepository;
 
-    public DbNoteService(NoteRepository noteRepository) {
+    public NoteDbService(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
     }
 
