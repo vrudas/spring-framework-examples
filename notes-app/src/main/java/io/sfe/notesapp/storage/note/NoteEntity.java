@@ -30,7 +30,7 @@ class NoteEntity {
         return text;
     }
 
-    NoteEntity withId(Integer id) {
+    public NoteEntity withId(Integer id) {
         return new NoteEntity(id, this.text);
     }
 

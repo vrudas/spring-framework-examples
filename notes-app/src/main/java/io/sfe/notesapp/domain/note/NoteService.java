@@ -42,4 +42,12 @@ public class NoteService {
     public void delete(int id) {
         noteRepository.deleteById(id);
     }
+
+    public Note updateNote(int noteId, String noteText) {
+        var noteToUpdate = NoteEntity.of(noteText).withId(noteId);
+
+        NoteEntity updatedNote = noteRepository.save(noteToUpdate);
+
+        return Note.of(updatedNote.getId(), updatedNote.getText());
+    }
 }
