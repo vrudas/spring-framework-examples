@@ -2,7 +2,6 @@ package io.sfe.notesapp.web.note;
 
 import io.sfe.notesapp.domain.note.Note;
 import io.sfe.notesapp.domain.note.NoteService;
-import io.sfe.notesapp.domain.note.NoteService.SaveNoteCommand;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -45,8 +44,7 @@ public class NoteController {
 
     @PostMapping
     public String saveNote(@RequestParam(name = "text") String text) {
-        var saveNoteCommand = SaveNoteCommand.of(text);
-        noteService.save(saveNoteCommand);
+        noteService.save(text);
 
         return "redirect:/notes";
     }

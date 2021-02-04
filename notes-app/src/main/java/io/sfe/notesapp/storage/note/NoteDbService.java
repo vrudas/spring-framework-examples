@@ -19,8 +19,8 @@ public class NoteDbService implements NoteService {
     }
 
     @Override
-    public Note save(SaveNoteCommand saveNoteCommand) {
-        NoteEntity noteToSave = NoteEntity.of(saveNoteCommand.getText());
+    public Note save(String noteText) {
+        NoteEntity noteToSave = NoteEntity.of(noteText);
         NoteEntity savedNote = noteRepository.save(noteToSave);
 
         return Note.of(savedNote.getId(), savedNote.getText());
