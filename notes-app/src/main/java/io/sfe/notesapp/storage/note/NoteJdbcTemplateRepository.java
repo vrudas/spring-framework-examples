@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static java.util.Collections.emptyMap;
+import static java.util.Map.entry;
 
 @Component
 class NoteJdbcTemplateRepository {
@@ -58,4 +59,13 @@ class NoteJdbcTemplateRepository {
         );
     }
 
+    void updateNote(int noteId, String noteText) {
+        namedJdbcTemplate.update(
+            "UPDATE note SET text = :text WHERE id = :id",
+            Map.ofEntries(
+                entry("id", noteId),
+                entry("text", noteText)
+            )
+        );
+    }
 }

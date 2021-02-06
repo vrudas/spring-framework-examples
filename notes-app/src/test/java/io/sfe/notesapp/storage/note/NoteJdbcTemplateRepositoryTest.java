@@ -146,4 +146,23 @@ class NoteJdbcTemplateRepositoryTest {
         assertThat(notesCount).isEqualTo(0);
     }
 
+    @Test
+    @DisplayName("Note updated")
+    void note_updated() {
+        new SimpleJdbcInsert(namedJdbcTemplate.getJdbcTemplate())
+            .withTableName("note")
+            .usingGeneratedKeyColumns("id")
+            .usingColumns("text")
+            .execute(Map.of("text", "text"));
+
+        noteJdbcTemplateRepository.updateNote(1, "TEXT");
+
+        var updatedNoteText = namedJdbcTemplate.queryForObject(
+            "SELECT text FROM note WHERE id = :id",
+            Map.of("id", 1),
+            String.class
+        );
+
+        assertThat(updatedNoteText).isEqualTo("TEXT");
+    }
 }
