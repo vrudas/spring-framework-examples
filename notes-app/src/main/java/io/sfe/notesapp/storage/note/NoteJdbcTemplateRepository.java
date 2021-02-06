@@ -51,4 +51,11 @@ class NoteJdbcTemplateRepository {
         );
     }
 
+    void delete(int id) {
+        namedJdbcTemplate.update(
+            "DELETE FROM note WHERE id = :id",
+            Map.of("id", id)
+        );
+    }
+
 }

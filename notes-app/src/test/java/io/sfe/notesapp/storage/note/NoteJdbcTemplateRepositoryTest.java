@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 @JdbcTest
 @Sql(scripts = "classpath:schema.sql")
@@ -35,6 +36,13 @@ class NoteJdbcTemplateRepositoryTest {
     @AfterEach
     void tearDown() {
         JdbcTestUtils.dropTables(
+            namedJdbcTemplate.getJdbcTemplate(),
+            "note"
+        );
+    }
+
+    private int fetchNotesCount() {
+        return JdbcTestUtils.countRowsInTable(
             namedJdbcTemplate.getJdbcTemplate(),
             "note"
         );
@@ -61,10 +69,7 @@ class NoteJdbcTemplateRepositoryTest {
         noteJdbcTemplateRepository.save("1");
         noteJdbcTemplateRepository.save("2");
 
-        var notesCount = JdbcTestUtils.countRowsInTable(
-            namedJdbcTemplate.getJdbcTemplate(),
-            "note"
-        );
+        var notesCount = fetchNotesCount();
 
         assertThat(notesCount).isEqualTo(2);
     }
@@ -114,4 +119,31 @@ class NoteJdbcTemplateRepositoryTest {
             )
         );
     }
+
+    @Test
+    @DisplayName("Note not deleted in case when not exists")
+    void note_not_deleted_in_case_when_not_exists() {
+        assertThatCode(() -> noteJdbcTemplateRepository.delete(1)).doesNotThrowAnyException();
+    }
+
+    @Test
+    @DisplayName("Note deleted")
+    void note_deleted() {
+        new SimpleJdbcInsert(namedJdbcTemplate.getJdbcTemplate())
+            .withTableName("note")
+            .usingGeneratedKeyColumns("id")
+            .usingColumns("text")
+            .execute(Map.of("text", "text"));
+
+        var notesCountBeforeDeletion = fetchNotesCount();
+        assertThat(notesCountBeforeDeletion).isEqualTo(1);
+
+
+        noteJdbcTemplateRepository.delete(1);
+
+        var notesCount = fetchNotesCount();
+
+        assertThat(notesCount).isEqualTo(0);
+    }
+
 }
