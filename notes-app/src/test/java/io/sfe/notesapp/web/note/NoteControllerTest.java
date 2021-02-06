@@ -11,7 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,5 +71,35 @@ class NoteControllerTest {
         .andExpect(redirectedUrl("/notes"));
 
         verify(noteService).save("text");
+    }
+
+    @Test
+    @DisplayName("Note not found because of incorrect id")
+    void note_not_found_because_of_incorrect_id() throws Exception {
+        mockMvc.perform(get("/notes/noteId"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Note not found")
+    void note_not_found() throws Exception {
+        when(noteService.findById(anyInt()))
+            .thenThrow(NoSuchElementException.class);
+
+        mockMvc.perform(get("/notes/1"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Note found")
+    void note_found() throws Exception {
+        when(noteService.findById(1))
+            .thenReturn(Note.of(1, "text"));
+
+        mockMvc.perform(get("/notes/1"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+            .andExpect(view().name("note/note"))
+            .andExpect(model().attribute("note", NoteDto.of(1, "text")));
     }
 }
