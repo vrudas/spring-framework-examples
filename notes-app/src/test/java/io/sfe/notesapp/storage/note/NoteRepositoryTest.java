@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
@@ -16,11 +17,14 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 public class NoteRepositoryTest {
 
     @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
     private NoteRepository noteRepository;
 
     @BeforeEach
     void setUp() {
-        noteRepository.deleteAll();
+        jdbcTemplate.execute("TRUNCATE TABLE note");
     }
 
     @Test
@@ -64,7 +68,6 @@ public class NoteRepositoryTest {
 
     @Test
     @DisplayName("Save multiple notes")
-    @DirtiesContext
     void save_multiple_notes() {
         noteRepository.save(NoteEntity.of("1"));
         noteRepository.save(NoteEntity.of("2"));
@@ -82,10 +85,9 @@ public class NoteRepositoryTest {
 
     @Test
     @DisplayName("Note was found")
-    @DirtiesContext
     void note_was_found() {
         var noteToSave = NoteEntity.of("text");
-        NoteEntity savedNote = noteRepository.save(noteToSave);
+        noteRepository.save(noteToSave);
 
         Optional<NoteEntity> noteEntity = noteRepository.findById(1);
 
