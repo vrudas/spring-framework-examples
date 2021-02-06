@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -68,6 +69,7 @@ public class NoteRepositoryTest {
 
     @Test
     @DisplayName("Save multiple notes")
+    @DirtiesContext
     void save_multiple_notes() {
         noteRepository.save(NoteEntity.of("1"));
         noteRepository.save(NoteEntity.of("2"));
@@ -94,4 +96,23 @@ public class NoteRepositoryTest {
         assertThat(noteEntity).get().isEqualTo(NoteEntity.of("text").withId(1));
     }
 
+    @Test
+    @DisplayName("Find all notes")
+    @DirtiesContext
+    void find_all_notes() {
+        var firstNote = NoteEntity.of("text1");
+        var secondNote = NoteEntity.of("text2");
+
+        noteRepository.save(firstNote);
+        noteRepository.save(secondNote);
+
+        var noteEntities = noteRepository.findAll();
+
+        assertThat(noteEntities).isEqualTo(
+            List.of(
+                NoteEntity.of("text1").withId(1),
+                NoteEntity.of("text2").withId(2)
+            )
+        );
+    }
 }
