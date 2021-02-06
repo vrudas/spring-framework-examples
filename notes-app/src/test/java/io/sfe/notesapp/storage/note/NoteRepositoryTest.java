@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -54,12 +55,13 @@ public class NoteRepositoryTest {
         var noteToSave = NoteEntity.of("text");
         var savedNote = noteRepository.save(noteToSave);
 
-        assertThat(savedNote).extracting(NoteEntity::getId).isNotNull();
+        assertThat(savedNote).extracting(NoteEntity::getId).isEqualTo(1);
         assertThat(savedNote).extracting(NoteEntity::getText).isEqualTo("text");
     }
 
     @Test
     @DisplayName("Save multiple notes")
+    @DirtiesContext
     void save_multiple_notes() {
         noteRepository.save(NoteEntity.of("1"));
         noteRepository.save(NoteEntity.of("2"));
