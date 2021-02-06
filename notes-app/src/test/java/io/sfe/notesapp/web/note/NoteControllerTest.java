@@ -39,4 +39,14 @@ class NoteControllerTest {
             .andExpect(view().name("note/notes"))
             .andExpect(model().attribute("notes", List.of(NoteDto.of(1, "1"))));
     }
+
+    @Test
+    @DisplayName("Show create note page")
+    void show_create_note_page() throws Exception {
+        mockMvc.perform(get("/notes/create-note"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+            .andExpect(view().name("note/create-note"))
+            .andExpect(model().size(0));
+    }
 }
