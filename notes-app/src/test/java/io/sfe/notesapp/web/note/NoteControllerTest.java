@@ -12,8 +12,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
@@ -48,5 +50,24 @@ class NoteControllerTest {
             .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
             .andExpect(view().name("note/create-note"))
             .andExpect(model().size(0));
+    }
+
+    @Test
+    @DisplayName("Save note failed for missing 'text' argument")
+    void save_note_failed_for_missing_text_argument() throws Exception {
+        mockMvc.perform(post("/notes"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Note saved")
+    void note_saved() throws Exception {
+        mockMvc.perform(
+            post("/notes")
+            .param("text", "text")
+        ).andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("/notes"));
+
+        verify(noteService).save("text");
     }
 }
