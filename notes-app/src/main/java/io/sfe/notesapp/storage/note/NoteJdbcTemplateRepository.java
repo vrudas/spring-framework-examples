@@ -5,8 +5,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static java.util.Collections.emptyMap;
 
 @Component
 public class NoteJdbcTemplateRepository {
@@ -38,6 +41,14 @@ public class NoteJdbcTemplateRepository {
             Map.of("id", id),
             NOTE_ENTITY_ROW_MAPPER
         ).findFirst();
+    }
+
+    public List<NoteEntity> findAll() {
+        return namedJdbcTemplate.query(
+            "SELECT id, text FROM note",
+            emptyMap(),
+            NOTE_ENTITY_ROW_MAPPER
+        );
     }
 
 }

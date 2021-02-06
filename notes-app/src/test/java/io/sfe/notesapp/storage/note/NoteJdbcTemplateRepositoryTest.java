@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -89,4 +91,27 @@ class NoteJdbcTemplateRepositoryTest {
         assertThat(noteEntity).get().isEqualTo(NoteEntity.of("text").withId(1));
     }
 
+    @Test
+    @DisplayName("Find all notes")
+    void find_all_notes() {
+        var batchInsertParameters = SqlParameterSourceUtils.createBatch(
+            Map.of("text", "text1"),
+            Map.of("text", "text2")
+        );
+
+        new SimpleJdbcInsert(namedJdbcTemplate.getJdbcTemplate())
+            .withTableName("note")
+            .usingGeneratedKeyColumns("id")
+            .usingColumns("text")
+            .executeBatch(batchInsertParameters);
+
+        List<NoteEntity> noteEntities = noteJdbcTemplateRepository.findAll();
+
+        assertThat(noteEntities).isEqualTo(
+            List.of(
+                NoteEntity.of("text1").withId(1),
+                NoteEntity.of("text2").withId(2)
+            )
+        );
+    }
 }
