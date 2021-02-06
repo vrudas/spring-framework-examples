@@ -12,7 +12,7 @@ import java.util.Optional;
 import static java.util.Collections.emptyMap;
 
 @Component
-public class NoteJdbcTemplateRepository {
+class NoteJdbcTemplateRepository {
 
     private static final RowMapper<NoteEntity> NOTE_ENTITY_ROW_MAPPER = (rs, rowNum) -> {
         var id = rs.getInt("id");
@@ -22,11 +22,11 @@ public class NoteJdbcTemplateRepository {
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
-    public NoteJdbcTemplateRepository(NamedParameterJdbcTemplate namedJdbcTemplate) {
+    NoteJdbcTemplateRepository(NamedParameterJdbcTemplate namedJdbcTemplate) {
         this.namedJdbcTemplate = namedJdbcTemplate;
     }
 
-    public int save(String noteText) {
+    int save(String noteText) {
         return new SimpleJdbcInsert(namedJdbcTemplate.getJdbcTemplate())
             .withTableName("note")
             .usingGeneratedKeyColumns("id")
@@ -35,7 +35,7 @@ public class NoteJdbcTemplateRepository {
             .intValue();
     }
 
-    public Optional<NoteEntity> findById(int id) {
+    Optional<NoteEntity> findById(int id) {
         return namedJdbcTemplate.queryForStream(
             "SELECT id, text FROM note WHERE id = :id",
             Map.of("id", id),
@@ -43,7 +43,7 @@ public class NoteJdbcTemplateRepository {
         ).findFirst();
     }
 
-    public List<NoteEntity> findAll() {
+    List<NoteEntity> findAll() {
         return namedJdbcTemplate.query(
             "SELECT id, text FROM note",
             emptyMap(),
