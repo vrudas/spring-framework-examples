@@ -48,4 +48,23 @@ public class NoteRepositoryTest {
         assertThat(noteRepository.count()).isEqualTo(0);
     }
 
+    @Test
+    @DisplayName("Save note and check note data")
+    void save_note_and_check_note_data() {
+        var noteToSave = NoteEntity.of("text");
+        var savedNote = noteRepository.save(noteToSave);
+
+        assertThat(savedNote).extracting(NoteEntity::getId).isNotNull();
+        assertThat(savedNote).extracting(NoteEntity::getText).isEqualTo("text");
+    }
+
+    @Test
+    @DisplayName("Save multiple notes")
+    void save_multiple_notes() {
+        noteRepository.save(NoteEntity.of("1"));
+        noteRepository.save(NoteEntity.of("2"));
+
+        assertThat(noteRepository.count()).isEqualTo(2);
+    }
+
 }
