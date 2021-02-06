@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Calendar</title>
+    <title>Notes App</title>
 </head>
 <body>
 <h2>Welcome to Notes application</h2>
 
 <ul>
-    <li><a href="/notes">List of all notes</a></li>
+    <li><a href="/notes" th:href="@{/notes}">List of all notes</a></li>
 </ul>
 
 </body>
