@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,6 +65,28 @@ class NoteJdbcTemplateRepositoryTest {
         );
 
         assertThat(notesCount).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("Note was not found")
+    void note_was_not_found() {
+        Optional<NoteEntity> noteEntity = noteJdbcTemplateRepository.findById(1);
+
+        assertThat(noteEntity).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Note was found")
+    void note_was_found() {
+        new SimpleJdbcInsert(namedJdbcTemplate.getJdbcTemplate())
+            .withTableName("note")
+            .usingGeneratedKeyColumns("id")
+            .usingColumns("text")
+            .execute(Map.of("text", "text"));
+
+        Optional<NoteEntity> noteEntity = noteJdbcTemplateRepository.findById(1);
+
+        assertThat(noteEntity).get().isEqualTo(NoteEntity.of("text").withId(1));
     }
 
 }

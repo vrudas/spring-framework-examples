@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class NoteJdbcTemplateRepository {
@@ -29,6 +30,14 @@ public class NoteJdbcTemplateRepository {
             .usingColumns("text")
             .executeAndReturnKey(Map.of("text", noteText))
             .intValue();
+    }
+
+    public Optional<NoteEntity> findById(int id) {
+        return namedJdbcTemplate.queryForStream(
+            "SELECT id, text FROM note WHERE id = :id",
+            Map.of("id", id),
+            NOTE_ENTITY_ROW_MAPPER
+        ).findFirst();
     }
 
 }
