@@ -31,6 +31,8 @@ public class NoteControllerIntegrationTest {
         readNote(noteId);
 
         updateNote(noteId);
+
+        deleteNote(noteId);
     }
 
     private void createNote() {
@@ -84,4 +86,17 @@ public class NoteControllerIntegrationTest {
             .isEqualTo(HttpStatus.OK);
     }
 
+    private void deleteNote(int noteId) {
+        ResponseEntity<String> response = restTemplate.exchange(
+            "/notes/{noteId}",
+            HttpMethod.DELETE,
+            HttpEntity.EMPTY,
+            String.class,
+            noteId
+        );
+
+        assertThat(response).extracting(ResponseEntity::getStatusCode)
+            .withFailMessage("Note is not deleted")
+            .isEqualTo(HttpStatus.NO_CONTENT);
+    }
 }
