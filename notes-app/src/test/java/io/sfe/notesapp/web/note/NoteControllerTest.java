@@ -149,4 +149,32 @@ class NoteControllerTest {
             .andExpect(model().attribute("note", NoteDto.of(1, "text")));
     }
 
+    @Test
+    @DisplayName("Note update failed for incorrect id")
+    void note_update_failed_for_incorrect_id() throws Exception {
+        mockMvc.perform(
+            put("/notes/noteId")
+                .param("text", "1")
+        ).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Note update failed for missing text parameter")
+    void note_update_failed_for_missing_text_parameter() throws Exception {
+        mockMvc.perform(put("/notes/1"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Note updated by id")
+    void note_updated_by_id() throws Exception {
+        mockMvc.perform(
+            put("/notes/1")
+                .param("text", "1")
+        )
+            .andExpect(status().isOk())
+            .andExpect(redirectedUrl("/notes/1"));
+
+        verify(noteService).updateNote(1, "1");
+    }
 }
