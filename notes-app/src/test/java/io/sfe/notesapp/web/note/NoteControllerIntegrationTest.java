@@ -29,6 +29,8 @@ public class NoteControllerIntegrationTest {
         createNote();
 
         readNote(noteId);
+
+        updateNote(noteId);
     }
 
     private void createNote() {
@@ -60,6 +62,25 @@ public class NoteControllerIntegrationTest {
 
         assertThat(response).extracting(ResponseEntity::getStatusCode)
             .withFailMessage("Note not found")
+            .isEqualTo(HttpStatus.OK);
+    }
+
+    private void updateNote(int noteId) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("text", "TEXT");
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(parameters, HttpHeaders.EMPTY);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+            "/notes/{noteId}",
+            HttpMethod.PUT,
+            request,
+            String.class,
+            noteId
+        );
+
+        assertThat(response).extracting(ResponseEntity::getStatusCode)
+            .withFailMessage("Note is not updated")
             .isEqualTo(HttpStatus.OK);
     }
 
