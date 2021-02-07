@@ -119,4 +119,34 @@ class NoteControllerTest {
         verify(noteService).delete(1);
     }
 
+    @Test
+    @DisplayName("Show update note page failed for incorrect note id")
+    void show_update_note_page_failed_for_incorrect_id() throws Exception {
+        mockMvc.perform(get("/notes/noteId/update-note"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Show update note page failed for not existing note")
+    void show_update_note_page_failed_for_not_existing_note() throws Exception {
+        when(noteService.findById(1))
+            .thenThrow(NoSuchElementException.class);
+
+        mockMvc.perform(get("/notes/1/update-note"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Show update note page")
+    void show_update_note_page() throws Exception {
+        when(noteService.findById(1))
+            .thenReturn(Note.of(1, "text"));
+
+        mockMvc.perform(get("/notes/1/update-note"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+            .andExpect(view().name("note/update-note"))
+            .andExpect(model().attribute("note", NoteDto.of(1, "text")));
+    }
+
 }
