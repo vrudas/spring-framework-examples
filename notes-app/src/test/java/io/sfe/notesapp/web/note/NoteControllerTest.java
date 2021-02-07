@@ -16,8 +16,7 @@ import java.util.NoSuchElementException;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
@@ -102,4 +101,22 @@ class NoteControllerTest {
             .andExpect(view().name("note/note"))
             .andExpect(model().attribute("note", NoteDto.of(1, "text")));
     }
+
+    @Test
+    @DisplayName("Note not deleted because of incorrect id")
+    void note_not_deleted_because_of_incorrect_id() throws Exception {
+        mockMvc.perform(delete("/notes/noteId"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Note deleted")
+    void note_deleted() throws Exception {
+        mockMvc.perform(delete("/notes/1"))
+            .andExpect(status().isNoContent())
+            .andExpect(redirectedUrl("/notes"));
+
+        verify(noteService).delete(1);
+    }
+
 }
