@@ -23,10 +23,12 @@ public class NoteControllerIntegrationTest {
 
     @Test
     @DisplayName("Note CRUD integration test")
-    void note_crud_integration_test() throws Exception {
+    void note_crud_integration_test() {
         int noteId = 1;
 
         createNote();
+
+        readNote(noteId);
     }
 
     private void createNote() {
@@ -47,6 +49,18 @@ public class NoteControllerIntegrationTest {
         assertThat(response).extracting(ResponseEntity::getStatusCode)
             .withFailMessage("Note is not created")
             .isEqualTo(HttpStatus.FOUND);
+    }
+
+    private void readNote(int noteId) {
+        ResponseEntity<String> response = restTemplate.getForEntity(
+            "/notes/{noteId}",
+            String.class,
+            noteId
+        );
+
+        assertThat(response).extracting(ResponseEntity::getStatusCode)
+            .withFailMessage("Note not found")
+            .isEqualTo(HttpStatus.OK);
     }
 
 }
