@@ -14,5 +14,6 @@ include 'example-10-spring-mvc'
 include 'example-11-spring-boot'
 include 'example-12-boot-security'
 include 'example-13-inmemory-security'
+include 'example-14-jdbc-auth-security'
 include 'notes-app'
 
