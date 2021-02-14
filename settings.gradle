@@ -1,5 +1,6 @@
 rootProject.name = 'spring-framework-examples'
 
+include 'notes-app'
 include 'example-00-hello'
 include 'example-01-bean-factory'
 include 'example-02-bean-definition'
@@ -16,5 +17,5 @@ include 'example-12-boot-security'
 include 'example-13-inmemory-security'
 include 'example-14-jdbc-auth-security'
 include 'example-15-user-flow-security'
-include 'notes-app'
+include 'example-16-custom-auth-provider'
 
