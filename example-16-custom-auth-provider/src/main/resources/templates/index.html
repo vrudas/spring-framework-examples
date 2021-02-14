@@ -7,5 +7,8 @@
 <body>
 <p>Logged user: <span sec:authentication="name">Bob</span></p>
 <p>Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span></p>
+<form name="f" th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
 </body>
 </html>
