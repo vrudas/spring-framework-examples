@@ -1,6 +1,8 @@
 package io.sfe.userflow.user;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
@@ -8,13 +10,24 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserDetailsManager userDetailsManager;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserDetailsManager userDetailsManager) {
+    public UserService(
+        UserDetailsManager userDetailsManager,
+        PasswordEncoder passwordEncoder
+    ) {
         this.userDetailsManager = userDetailsManager;
+        this.passwordEncoder = passwordEncoder;
     }
 
     void createUser(UserDetails user) {
-        userDetailsManager.createUser(user);
+        var encodedPassword = passwordEncoder.encode(user.getPassword());
+
+        var userWithEncodedPassword = User.withUserDetails(user)
+            .password(encodedPassword)
+            .build();
+
+        userDetailsManager.createUser(userWithEncodedPassword);
     }
 
     void deleteUser(String username) {
@@ -22,7 +35,8 @@ public class UserService {
     }
 
     void changePassword(String oldPassword, String newPassword) {
-        userDetailsManager.changePassword(oldPassword, newPassword);
+        var encodedNewPassword = passwordEncoder.encode(newPassword);
+        userDetailsManager.changePassword(oldPassword, encodedNewPassword);
     }
 
     boolean userExists(String username) {

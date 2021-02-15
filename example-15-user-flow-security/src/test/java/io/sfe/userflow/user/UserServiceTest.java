@@ -1,19 +1,33 @@
 package io.sfe.userflow.user;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest
 class UserServiceTest {
 
+    @SpyBean
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     private UserService userService;
+
+    @BeforeEach
+    void setUp() {
+        doReturn("encoded_password")
+            .when(passwordEncoder).encode(anyString());
+    }
 
     @Test
     void check_that_admin_user_exist_by_default() {
@@ -51,7 +65,7 @@ class UserServiceTest {
 
         assertThat(user).isNotNull();
         assertThat(user).extracting(UserDetails::getUsername).isEqualTo("user_found");
-        assertThat(user).extracting(UserDetails::getPassword).isEqualTo("user_found");
+        assertThat(user).extracting(UserDetails::getPassword).isEqualTo("encoded_password");
     }
 
     @Test
@@ -71,7 +85,7 @@ class UserServiceTest {
 
         UserDetails user = userService.loadUserByUsername("user_with_password");
 
-        assertThat(user).extracting(UserDetails::getPassword).isEqualTo("password");
+        assertThat(user).extracting(UserDetails::getPassword).isEqualTo("encoded_password");
     }
 
     @Test
