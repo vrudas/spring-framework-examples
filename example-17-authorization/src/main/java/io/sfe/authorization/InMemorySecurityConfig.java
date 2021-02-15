@@ -42,7 +42,7 @@ public class InMemorySecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/login").permitAll()
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/read-user").hasAnyAuthority("READ_USERS")
-            .antMatchers("/delete-user").hasAuthority("DELETE_USERS")
+            .antMatchers("/delete-user").access("hasRole('ADMIN') and hasAuthority('DELETE_USERS')")
             .anyRequest().authenticated()
             .and()
             .formLogin()
