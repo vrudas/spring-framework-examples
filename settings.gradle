@@ -18,4 +18,5 @@ include 'example-13-inmemory-security'
 include 'example-14-jdbc-auth-security'
 include 'example-15-user-flow-security'
 include 'example-16-custom-auth-provider'
+include 'example-17-authorization'
 
