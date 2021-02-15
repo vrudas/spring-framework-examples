@@ -39,10 +39,10 @@ public class InMemorySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/login").permitAll()
-            .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/read-user").hasAnyAuthority("READ_USERS")
-            .antMatchers("/delete-user").access("hasRole('ADMIN') and hasAuthority('DELETE_USERS')")
+            .mvcMatchers("/login").permitAll()
+            .mvcMatchers("/admin/**").hasRole("ADMIN")
+            .mvcMatchers("/read-user").hasAnyAuthority("READ_USERS")
+            .mvcMatchers("/delete-user").access("hasRole('ADMIN') and hasAuthority('DELETE_USERS')")
             .anyRequest().authenticated()
             .and()
             .formLogin()
