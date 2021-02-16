@@ -1,30 +1,15 @@
 package io.sfe.bootsecurity;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 public class InMemorySecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Bean
-    public UserDetailsService users() {
-        UserDetails user = User.builder()
-            .username("user")
-            .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW")
-            .roles("USER")
-            .build();
-
-        return new InMemoryUserDetailsManager(user);
-    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
