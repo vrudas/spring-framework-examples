@@ -29,4 +29,15 @@ public class InMemorySecurityConfig extends WebSecurityConfigurerAdapter {
             .roles("ADMIN");
     }
 
+/*
+    // HTTP Basic Example
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+            .mvcMatchers("/").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .httpBasic();
+    }
+*/
 }
