@@ -18,17 +18,43 @@
     </div>
     <div class="container authenticated" style="display:none">
         Logged in as: <span id="user"></span>
+        <div>
+            <button id="btn-logout" class="btn btn-primary">Logout</button>
+        </div>
     </div>
 </div>
 
 <script src="/webjars/jquery/jquery.min.js"></script>
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script src="/webjars/js-cookie/js.cookie.js"></script>
 
 <script>
+    let stateModificationMethods = ["POST", "PUT", "DELETE"];
+
+    $.ajaxSetup({
+        beforeSend: (xhr, settings) => {
+            if (stateModificationMethods.includes(settings.type)) {
+                let requestUrl = settings.url;
+                if (!(/^http:.*/.test(requestUrl) || /^https:.*/.test(requestUrl))) {
+                    // Only send the token to relative URLs i.e. locally.
+                    xhr.setRequestHeader("X-XSRF-TOKEN", Cookies.get('XSRF-TOKEN'));
+                }
+            }
+        }
+    });
+
     $.get("/users/me", (data) => {
         $("#user").html(data.name);
         $(".unauthenticated").hide();
         $(".authenticated").show();
+    });
+
+    $("#btn-logout").click(() => {
+        $.post("/logout", () => {
+            $("#user").html('');
+            $(".unauthenticated").show();
+            $(".authenticated").hide();
+        });
     });
 </script>
 </body>
