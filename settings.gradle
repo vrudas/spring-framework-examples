@@ -20,4 +20,5 @@ include 'example-15-user-flow-security'
 include 'example-16-custom-auth-provider'
 include 'example-17-authorization'
 include 'example-18-method-security'
+include 'example-19-remember-me'
 
