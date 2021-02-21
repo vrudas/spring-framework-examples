@@ -22,4 +22,5 @@ include 'example-17-authorization'
 include 'example-18-method-security'
 include 'example-19-remember-me'
 include 'example-20-oauth'
+include 'example-21-jwt'
 
