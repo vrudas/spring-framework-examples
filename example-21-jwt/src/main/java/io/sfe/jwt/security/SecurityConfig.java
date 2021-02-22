@@ -1,37 +1,45 @@
 package io.sfe.jwt.security;
 
-import org.springframework.context.annotation.Bean;
+import io.sfe.jwt.security.jwt.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("$2a$10$xxDN8JuT21uFSH0LeelhKuzv42tXjKKCDgY9gHO4/159cKG1ChICi")
-                .roles("USER")
-            .and()
-                .withUser("admin")
-                .password("$2a$10$kF9qWGfBqKqqO9PuG/XLZuuPq601zbtV3F4v8.mYVX0ilBsvbjjpW")
-                .roles("ADMIN")
-        ;
+    private final JwtTokenGenerator jwtTokenGenerator;
+    private final UserDetailsExtractor userDetailsExtractor;
+
+    public SecurityConfig(
+        JwtTokenGenerator jwtTokenGenerator,
+        UserDetailsExtractor userDetailsExtractor
+    ) {
+        this.jwtTokenGenerator = jwtTokenGenerator;
+        this.userDetailsExtractor = userDetailsExtractor;
+    }
+
+    @Autowired
+    void configureGlobal(
+        AuthenticationManagerBuilder auth,
+        JwtTokenProvider jwtTokenProvider
+    ) {
+        auth.authenticationProvider(jwtTokenProvider);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+        http.cors().and().csrf().disable().authorizeRequests()
+            .antMatchers("/login").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .addFilter(new JwtAuthenticationFilter(this.authenticationManager(), jwtTokenGenerator))
+            .addFilter(new JwtAuthorizationFilter(this.authenticationManager(), userDetailsExtractor))
+            // this disables session creation on Spring Security
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
 }
