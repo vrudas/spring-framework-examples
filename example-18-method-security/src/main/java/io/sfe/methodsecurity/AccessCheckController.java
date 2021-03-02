@@ -16,6 +16,7 @@ public class AccessCheckController {
     }
 
     @GetMapping("/name")
+    @PreAuthorize("permitAll()")
     public String showUserName(@AuthenticationPrincipal UserDetails userDetails) {
         return userDetails.getUsername();
     }
