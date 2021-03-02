@@ -14,21 +14,21 @@ import static io.sfe.jwt.security.jwt.JwtTokenUtil.encodeSecretKey;
 public class JwtTokenGenerator {
 
     private final String secretKey;
-    private final long tokenExpireSeconds;
+    private final long tokenExpireMilliseconds;
     private final Clock clock;
 
     public JwtTokenGenerator(
         @Value("${security.jwt.token.secret-key}") String secretKey,
-        @Value("${security.jwt.token.expire-milliseconds}") long tokenExpireSeconds,
+        @Value("${security.jwt.token.expire-milliseconds}") long tokenExpireMilliseconds,
         Clock clock
     ) {
         this.secretKey = secretKey;
-        this.tokenExpireSeconds = tokenExpireSeconds;
+        this.tokenExpireMilliseconds = tokenExpireMilliseconds;
         this.clock = clock;
     }
 
     String generateToken(String username) {
-        Date expireDate = new Date(clock.millis() + tokenExpireSeconds);
+        Date expireDate = new Date(clock.millis() + tokenExpireMilliseconds);
 
         return Jwts.builder()
             .setSubject(username)
