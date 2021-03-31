@@ -143,7 +143,7 @@ class NoteJdbcTemplateRepositoryTest {
 
         var notesCount = fetchNotesCount();
 
-        assertThat(notesCount).isEqualTo(0);
+        assertThat(notesCount).isZero();
     }
 
     @Test

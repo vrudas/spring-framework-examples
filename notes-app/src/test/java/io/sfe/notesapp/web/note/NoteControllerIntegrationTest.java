@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * REST approach will be more flexible.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class NoteControllerIntegrationTest {
+class NoteControllerIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;

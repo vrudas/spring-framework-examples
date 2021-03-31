@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
         NoteServiceContextConfigurationTest.TestContextConfig.class
     }
 )
-public class NoteServiceContextConfigurationTest {
+class NoteServiceContextConfigurationTest {
 
     @TestConfiguration
     static class TestContextConfig {

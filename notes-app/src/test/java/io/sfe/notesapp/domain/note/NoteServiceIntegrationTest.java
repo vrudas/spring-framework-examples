@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Sql(statements = "TRUNCATE TABLE note")
-public class NoteServiceIntegrationTest {
+class NoteServiceIntegrationTest {
 
     @Autowired
     private NoteService noteService;

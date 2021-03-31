@@ -32,7 +32,7 @@ public class NoteRepositoryTest {
     @DisplayName("No notes in database")
     public void no_history_records_in_db() {
         long notesCount = noteRepository.count();
-        assertThat(notesCount).isEqualTo(0);
+        assertThat(notesCount).isZero();
     }
 
     @Test
@@ -53,7 +53,7 @@ public class NoteRepositoryTest {
 
         noteRepository.delete(savedNoteEntity);
 
-        assertThat(noteRepository.count()).isEqualTo(0);
+        assertThat(noteRepository.count()).isZero();
     }
 
     @Test
