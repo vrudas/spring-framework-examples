@@ -27,7 +27,7 @@ class IndexControllerTest {
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
             .andExpect(MockMvcResultMatchers.view().name("index"))
-            .andExpect(MockMvcResultMatchers.model().size(0));
+            .andExpect(MockMvcResultMatchers.model().attribute("applicationName", "Notes Dev"));
     }
 
     @Test
@@ -37,6 +37,6 @@ class IndexControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
             .andExpect(view().name("index"))
-            .andExpect(model().size(0));
+            .andExpect(MockMvcResultMatchers.model().attribute("applicationName", "Notes Dev"));
     }
 }
