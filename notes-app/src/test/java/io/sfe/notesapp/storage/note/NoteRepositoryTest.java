@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 @DataJdbcTest
-public class NoteRepositoryTest {
+class NoteRepositoryTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -30,21 +30,21 @@ public class NoteRepositoryTest {
 
     @Test
     @DisplayName("No notes in database")
-    public void no_history_records_in_db() {
+    void no_history_records_in_db() {
         long notesCount = noteRepository.count();
         assertThat(notesCount).isZero();
     }
 
     @Test
     @DisplayName("Nothing happened when trying to delete not existing note")
-    public void nothing_happened_when_trying_to_delete_not_existing_note() {
+    void nothing_happened_when_trying_to_delete_not_existing_note() {
         assertThatCode(() -> noteRepository.deleteById(1))
             .doesNotThrowAnyException();
     }
 
     @Test
     @DisplayName("Note was deleted")
-    public void note_was_deleted() {
+    void note_was_deleted() {
         var noteToSave = NoteEntity.of("text");
 
         var savedNoteEntity = noteRepository.save(noteToSave);

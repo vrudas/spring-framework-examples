@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping("/me")
-    private UserDetails currentUser(@AuthenticationPrincipal UserDetails userDetails) {
+    public UserDetails currentUser(@AuthenticationPrincipal UserDetails userDetails) {
         return userDetails;
     }
 }

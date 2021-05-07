@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
     locations = "/test.properties",
     properties = {"application.port: 4242"}
 )
-public class TestPropertySourcesTest {
+class TestPropertySourcesTest {
 
     @Value("${application.name}")
     private String applicationName;
