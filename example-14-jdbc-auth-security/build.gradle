@@ -9,7 +9,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
-    runtime 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
     compileOnly("org.springframework.boot:spring-boot-devtools")
 
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
