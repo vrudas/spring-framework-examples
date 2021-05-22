@@ -1,5 +1,17 @@
 rootProject.name = 'spring-framework-examples'
 
+enableFeaturePreview('VERSION_CATALOGS')
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            version('spring', '5.3.5')
+
+            alias('spring-context').to('org.springframework', 'spring-context').versionRef('spring')
+        }
+    }
+}
+
 include 'notes-app'
 include 'example-00-hello'
 include 'example-01-bean-factory'
