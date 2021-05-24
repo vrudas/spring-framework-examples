@@ -8,6 +8,8 @@ dependencyResolutionManagement {
             version('spring', '5.3.5')
 
             alias('spring-context').to('org.springframework', 'spring-context').versionRef('spring')
+            alias('spring-web').to('org.springframework', 'spring-web').versionRef('spring')
+            alias('spring-webmvc').to('org.springframework', 'spring-webmvc').versionRef('spring')
         }
     }
 }
