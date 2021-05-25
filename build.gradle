@@ -17,6 +17,6 @@ subprojects {
     sourceCompatibility = JavaVersion.VERSION_15
 
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
