@@ -16,7 +16,7 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
     implementation 'org.webjars:webjars-locator-core'
-    implementation 'org.webjars:jquery:3.4.1'
+    implementation 'org.webjars:jquery:3.6.0'
     implementation 'org.webjars:bootstrap:4.6.0-1'
     implementation 'org.webjars:js-cookie:2.2.1'
 
