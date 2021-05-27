@@ -1,7 +1,5 @@
 group("io.sfe")
 
-ext.servletApiVersion = "4.0.1"
-
 wrapper {
     gradleVersion = "7.0.2"
     distributionType = Wrapper.DistributionType.ALL
