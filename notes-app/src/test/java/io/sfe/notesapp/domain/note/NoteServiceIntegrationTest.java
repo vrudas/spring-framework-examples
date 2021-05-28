@@ -24,7 +24,7 @@ class NoteServiceIntegrationTest {
     void note_was_saved_with_correct_input() {
         Note savedNote = noteService.save("text");
 
-        assertThat(savedNote).isEqualTo(Note.of(savedNote.getId(), "text"));
+        assertThat(savedNote).isEqualTo(new Note(savedNote.id(), "text"));
     }
 
     @Test
@@ -58,16 +58,16 @@ class NoteServiceIntegrationTest {
     void note_was_found_by_id() {
         Note savedNote = noteService.save("text");
 
-        Note note = noteService.findById(savedNote.getId());
+        Note note = noteService.findById(savedNote.id());
 
-        assertThat(note).isEqualTo(Note.of(savedNote.getId(), "text"));
+        assertThat(note).isEqualTo(new Note(savedNote.id(), "text"));
     }
 
     @Test
     @DisplayName("Note was deleted")
     void note_was_deleted() {
         Note savedNote = noteService.save("text");
-        int savedNoteId = savedNote.getId();
+        int savedNoteId = savedNote.id();
 
         noteService.delete(savedNoteId);
 
@@ -79,11 +79,11 @@ class NoteServiceIntegrationTest {
     @DisplayName("Note was updated")
     void note_was_updated() {
         Note savedNote = noteService.save("text");
-        int savedNoteId = savedNote.getId();
+        int savedNoteId = savedNote.id();
 
         Note updatedNote = noteService.updateNote(savedNoteId, "TEXT");
 
-        assertThat(updatedNote).isEqualTo(Note.of(savedNoteId, "TEXT"));
+        assertThat(updatedNote).isEqualTo(new Note(savedNoteId, "TEXT"));
     }
 
 }

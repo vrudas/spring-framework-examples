@@ -40,7 +40,7 @@ class NoteServiceTest {
 
         Note savedNote = noteService.save("text");
 
-        assertThat(savedNote).isEqualTo(Note.of(1, "text"));
+        assertThat(savedNote).isEqualTo(new Note(1, "text"));
     }
 
     @Test
@@ -64,7 +64,7 @@ class NoteServiceTest {
 
         List<Note> notes = noteService.findAll();
 
-        assertThat(notes).isEqualTo(List.of(Note.of(1, "text")));
+        assertThat(notes).isEqualTo(List.of(new Note(1, "text")));
     }
 
     @Test
@@ -86,7 +86,7 @@ class NoteServiceTest {
 
         Note note = noteService.findById(1);
 
-        assertThat(note).isEqualTo(Note.of(1, "text"));
+        assertThat(note).isEqualTo(new Note(1, "text"));
     }
 
     @Test
@@ -104,6 +104,6 @@ class NoteServiceTest {
 
         Note updatedNote = noteService.updateNote(1, "TEXT");
 
-        assertThat(updatedNote).isEqualTo(Note.of(1, "TEXT"));
+        assertThat(updatedNote).isEqualTo(new Note(1, "TEXT"));
     }
 }

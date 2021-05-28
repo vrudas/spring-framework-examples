@@ -29,7 +29,7 @@ public class NoteController {
     public String allNotes(Model model) {
         var notes = noteService.findAll()
             .stream()
-            .map(note -> NoteDto.of(note.getId(), note.getText()))
+            .map(note -> NoteDto.of(note.id(), note.text()))
             .collect(toUnmodifiableList());
 
         model.addAttribute("notes", notes);
@@ -55,7 +55,7 @@ public class NoteController {
         Model model
     ) {
         Note noteById = noteService.findById(noteId);
-        NoteDto noteDto = NoteDto.of(noteById.getId(), noteById.getText());
+        NoteDto noteDto = NoteDto.of(noteById.id(), noteById.text());
 
         model.addAttribute("note", noteDto);
 
@@ -75,7 +75,7 @@ public class NoteController {
         Model model
     ) {
         Note note = noteService.findById(noteId);
-        NoteDto noteDto = NoteDto.of(note.getId(), note.getText());
+        NoteDto noteDto = NoteDto.of(note.id(), note.text());
 
         model.addAttribute("note", noteDto);
 

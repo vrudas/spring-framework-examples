@@ -33,7 +33,7 @@ class NoteControllerTest {
     @DisplayName("All notes request")
     void all_notes_request() throws Exception {
         when(noteService.findAll()).thenReturn(
-            List.of(Note.of(1, "1"))
+            List.of(new Note(1, "1"))
         );
 
         mockMvc.perform(get("/notes"))
@@ -93,7 +93,7 @@ class NoteControllerTest {
     @DisplayName("Note found")
     void note_found() throws Exception {
         when(noteService.findById(1))
-            .thenReturn(Note.of(1, "text"));
+            .thenReturn(new Note(1, "text"));
 
         mockMvc.perform(get("/notes/1"))
             .andExpect(status().isOk())
@@ -140,7 +140,7 @@ class NoteControllerTest {
     @DisplayName("Show update note page")
     void show_update_note_page() throws Exception {
         when(noteService.findById(1))
-            .thenReturn(Note.of(1, "text"));
+            .thenReturn(new Note(1, "text"));
 
         mockMvc.perform(get("/notes/1/update-note"))
             .andExpect(status().isOk())

@@ -22,20 +22,20 @@ public class NoteService {
         NoteEntity noteToSave = NoteEntity.of(noteText);
         NoteEntity savedNote = noteRepository.save(noteToSave);
 
-        return Note.of(savedNote.getId(), savedNote.getText());
+        return new Note(savedNote.getId(), savedNote.getText());
     }
 
     public List<Note> findAll() {
         Iterable<NoteEntity> allNotes = noteRepository.findAll();
 
         return StreamSupport.stream(allNotes.spliterator(), false)
-            .map(noteEntity -> Note.of(noteEntity.getId(), noteEntity.getText()))
+            .map(noteEntity -> new Note(noteEntity.getId(), noteEntity.getText()))
             .collect(toUnmodifiableList());
     }
 
     public Note findById(int id) {
         return noteRepository.findById(id)
-            .map(noteEntity -> Note.of(noteEntity.getId(), noteEntity.getText()))
+            .map(noteEntity -> new Note(noteEntity.getId(), noteEntity.getText()))
             .orElseThrow();
     }
 
@@ -48,6 +48,6 @@ public class NoteService {
 
         NoteEntity updatedNote = noteRepository.save(noteToUpdate);
 
-        return Note.of(updatedNote.getId(), updatedNote.getText());
+        return new Note(updatedNote.getId(), updatedNote.getText());
     }
 }
