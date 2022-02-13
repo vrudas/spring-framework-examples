@@ -1,7 +1,7 @@
 group("io.sfe")
 
 wrapper {
-    gradleVersion = "7.1"
+    gradleVersion = "7.4"
     distributionType = Wrapper.DistributionType.ALL
 }
 
