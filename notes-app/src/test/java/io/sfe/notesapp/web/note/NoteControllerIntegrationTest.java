@@ -1,5 +1,7 @@
 package io.sfe.notesapp.web.note;
 
+import io.sfe.notesapp.domain.note.Note;
+import io.sfe.notesapp.domain.note.NoteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,13 @@ class NoteControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private NoteService noteService;
+
     @Test
     @DisplayName("Note CRUD integration test")
     void note_crud_integration_test() {
-        int noteId = 1;
-
-        createNote();
+        int noteId = createNote().id();
 
         readNote(noteId);
 
@@ -35,7 +38,7 @@ class NoteControllerIntegrationTest {
         deleteNote(noteId);
     }
 
-    private void createNote() {
+    private Note createNote() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -53,6 +56,11 @@ class NoteControllerIntegrationTest {
         assertThat(response).extracting(ResponseEntity::getStatusCode)
             .withFailMessage("Note is not created")
             .isEqualTo(HttpStatus.FOUND);
+
+        var noteIdOptional = noteService.findAll().stream().findFirst();
+        assertThat(noteIdOptional).isNotEmpty();
+
+        return noteIdOptional.get();
     }
 
     private void readNote(int noteId) {
