@@ -1,7 +1,7 @@
 group("io.sfe")
 
 wrapper {
-    gradleVersion = "7.1"
+    gradleVersion = "7.4"
     distributionType = Wrapper.DistributionType.ALL
 }
 
@@ -10,7 +10,7 @@ subprojects {
 
     group 'io.sfe'
 
-    sourceCompatibility = JavaVersion.VERSION_16
+    sourceCompatibility = JavaVersion.VERSION_17
 
     repositories {
         mavenCentral()
