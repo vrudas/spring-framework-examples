@@ -11,7 +11,7 @@ buildscript {
 apply plugin: "com.bmuschko.tomcat"
 
 dependencies {
-    def tomcatVersion = "10.0.17"
+    def tomcatVersion = "10.0.18"
 
     tomcat("org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}")
     tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}")
