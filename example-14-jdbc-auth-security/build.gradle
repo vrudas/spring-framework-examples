@@ -12,7 +12,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     compileOnly("org.springframework.boot:spring-boot-devtools")
 
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

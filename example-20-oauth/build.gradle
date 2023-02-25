@@ -13,7 +13,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     compileOnly("org.springframework.boot:spring-boot-devtools")
 
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
     implementation 'org.webjars:webjars-locator-core'
     implementation 'org.webjars:jquery:3.6.3'
