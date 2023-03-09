@@ -21,14 +21,14 @@ public class SecurityConfig {
         authenticationManagerBuilder
             .inMemoryAuthentication()
             .withUser("admin")
-            .password("$2a$10$rkWfnHrSpo0JyNBH4tHRDOeuZACtCU5v4sCQpleWl4P41YuYqQMjC") //admin
+            .password("{bcrypt}$2a$10$rkWfnHrSpo0JyNBH4tHRDOeuZACtCU5v4sCQpleWl4P41YuYqQMjC") //admin
             .roles("ADMIN");
 
         authenticationManagerBuilder
             .jdbcAuthentication()
             .dataSource(dataSource)
             .withUser("user")
-            .password("$2a$10$GlpFG1Ml3U9AvkOu0D1B9ufnoquX5xqCR/NHaMfBZliYgPa8/e5sK")
+            .password("{bcrypt}$2a$10$GlpFG1Ml3U9AvkOu0D1B9ufnoquX5xqCR/NHaMfBZliYgPa8/e5sK")
             .roles("USER");
 
         return authenticationManagerBuilder.build();
