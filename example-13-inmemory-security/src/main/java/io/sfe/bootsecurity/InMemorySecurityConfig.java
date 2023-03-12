@@ -20,7 +20,7 @@ public class InMemorySecurityConfig {
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         var user = User.withUsername("user")
-            .password("18b146cac8026852b8b9ec406bc84ed2d334a3dc06") //user
+            .password("{bcrypt}$2a$10$GlpFG1Ml3U9AvkOu0D1B9ufnoquX5xqCR/NHaMfBZliYgPa8/e5sK") //user
             .roles("USER")
             .build();
 
