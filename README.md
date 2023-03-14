@@ -14,3 +14,7 @@ Educational project with Spring Framework examples. Used for lectures at courses
 - [Error Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
 - [Spring 5, Embedded Tomcat 8, and Gradle: a Quick Tutorial](https://auth0.com/blog/spring-5-embedded-tomcat-8-gradle-tutorial/)
 - [Spring Boot Reference Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+
+## Spring Security 6 Migration links
+- [Migrating to 6.0](https://docs.spring.io/spring-security/reference/migration/index.html)
+- [Spring Security without the WebSecurityConfigurerAdapter](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
