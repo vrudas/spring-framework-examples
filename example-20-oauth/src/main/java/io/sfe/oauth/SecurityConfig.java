@@ -29,6 +29,7 @@ public class SecurityConfig {
             .and()
 
             .csrf()
+            .ignoringRequestMatchers("/login", "/logout")
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         ;
 
