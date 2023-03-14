@@ -18,3 +18,6 @@ Educational project with Spring Framework examples. Used for lectures at courses
 ## Spring Security 6 Migration links
 - [Migrating to 6.0](https://docs.spring.io/spring-security/reference/migration/index.html)
 - [Spring Security without the WebSecurityConfigurerAdapter](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
+
+## Important information
+- The module [example-17-authorization](example-17-authorization) has an issue #101 that was caused because of update to Spring Security 6
