@@ -21,3 +21,43 @@ Educational project with Spring Framework examples. Used for lectures at courses
 
 ## Important information
 - The module [example-17-authorization](example-17-authorization) has an issue https://github.com/vrudas/spring-framework-examples/issues/101 that was caused because of update to Spring Security 6
+
+## Example 21 - JWT Instructions
+
+Please note that Intellij IDEA [HTTP Client](https://blog.jetbrains.com/idea/2020/09/at-your-request-use-the-http-client-in-intellij-idea-for-spring-boot-restful-web-services/) was used to perform requests in code snippets
+
+Please follow those steps to perform demo of how to get JWT token for existing user:
+
+- perform login action
+```http request
+POST http://localhost:8080/login?username=user&password=user
+Accept: application/json
+```
+
+- extract generated Bearer token from a response header `Authorization: Bearer <token>`
+```
+HTTP/1.1 200
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjc4ODM2OTY1fQ.Afagk8no-r2kUiDOdtjWMT06gYPHkrhCoOSoK5_X6k8BC8Lr6k5rB-9gyoE72-lkd0rx1sEPET-3Uf7KP-7BrQ
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 0
+Date: Tue, 14 Mar 2023 23:35:05 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+<Response body is empty>
+```
+
+- use generated Bearer token to perform call to an endpoint by providing `Authorization: Bearer <token>` header
+```http request
+GET http://localhost:8080/users/me
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjc4ODM1NjE5fQ.cRZ1ob4XZfG5RnU0jl2kdPihc9Ln-BlEOe7hbuwZJWp-UuQSGukI_57pWrBcdaCWPN-8luCF08YWU74tUErOFg
+```
