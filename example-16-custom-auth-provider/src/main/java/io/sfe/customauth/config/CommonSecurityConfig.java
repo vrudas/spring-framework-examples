@@ -2,7 +2,8 @@ package io.sfe.customauth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -17,11 +18,19 @@ public class CommonSecurityConfig {
      */
     @Bean
     public UserDetailsManager userDetailsService(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
+        var admin = User.withUsername("admin")
+            .password("$2a$10$kF9qWGfBqKqqO9PuG/XLZuuPq601zbtV3F4v8.mYVX0ilBsvbjjpW")
+            .roles("ADMIN")
+            .build();
+
+        var users = new JdbcUserDetailsManager(dataSource);
+        users.createUser(admin);
+
+        return users;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

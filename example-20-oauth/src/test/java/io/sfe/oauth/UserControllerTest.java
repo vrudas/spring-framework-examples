@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Disabled
+@Disabled("Because require real OAuth secrets under resources/secrets/secrets.properties")
 @WebMvcTest(UserController.class)
 class UserControllerTest {
 

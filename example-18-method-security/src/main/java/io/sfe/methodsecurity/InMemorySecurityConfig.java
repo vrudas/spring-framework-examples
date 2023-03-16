@@ -1,47 +1,42 @@
 package io.sfe.methodsecurity;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class InMemorySecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableMethodSecurity
+public class InMemorySecurityConfig {
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-            .passwordEncoder(new Pbkdf2PasswordEncoder())
-            .withUser(
-                User.builder()
-                    .username("user")
-                    .password("bacecc4236b50d27c7e580d6f7ec844251cdbec028b545154b3734fa63075b82017fb649be13fd17")
-                    .roles("USER")
-                    .authorities(new SimpleGrantedAuthority("READ_USERS"))
-                    .build()
-            );
+    @Bean
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+        var user = User.withUsername("user")
+            .password("{bcrypt}$2a$10$GlpFG1Ml3U9AvkOu0D1B9ufnoquX5xqCR/NHaMfBZliYgPa8/e5sK") //user
+            .roles("USER")
+            .authorities(new SimpleGrantedAuthority("READ_USERS"), new SimpleGrantedAuthority("ROLE_USER"))
+            .build();
 
-        auth.inMemoryAuthentication()
-            .passwordEncoder(new BCryptPasswordEncoder())
-            .withUser("admin")
-            .password("$2a$10$kF9qWGfBqKqqO9PuG/XLZuuPq601zbtV3F4v8.mYVX0ilBsvbjjpW")
-            .authorities("DELETE_USERS")
-            .roles("USER", "ADMIN");
+        var admin = User.withUsername("admin")
+            .password("{bcrypt}$2a$10$ku.DZ5JqOy/dgFgAZkwcSuiaMMCmOt8pVmerZDM5lTWO44MHGCMcC") //admin
+            .roles("USER", "ADMIN")
+            .authorities("DELETE_USERS", "ROLE_ADMIN")
+            .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .anyRequest().authenticated()
-            .and()
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
             .formLogin()
         ;
+
+        return http.build();
     }
 
 }

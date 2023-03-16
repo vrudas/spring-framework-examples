@@ -1,13 +1,13 @@
-package io.sfe.jdbcsecurity;
+package io.sfe.bootsecurity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SecuredJdbcAuthNoteApplication {
+public class SecuredApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SecuredJdbcAuthNoteApplication.class, args);
+        SpringApplication.run(SecuredApplication.class, args);
     }
 
 }

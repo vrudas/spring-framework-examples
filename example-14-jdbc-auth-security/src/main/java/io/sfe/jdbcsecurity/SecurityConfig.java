@@ -1,33 +1,37 @@
 package io.sfe.jdbcsecurity;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import javax.sql.DataSource;
 
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    private final DataSource dataSource;
+    @Bean
+    public AuthenticationManager authenticationManager(
+        HttpSecurity http,
+        DataSource dataSource
+    ) throws Exception {
+        var authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
 
-    public SecurityConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+        authenticationManagerBuilder
+            .inMemoryAuthentication()
+            .withUser("admin")
+            .password("{bcrypt}$2a$10$rkWfnHrSpo0JyNBH4tHRDOeuZACtCU5v4sCQpleWl4P41YuYqQMjC") //admin
+            .roles("ADMIN");
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
+        authenticationManagerBuilder
+            .jdbcAuthentication()
+            .dataSource(dataSource)
             .withUser("user")
-            .password("$2a$10$GlpFG1Ml3U9AvkOu0D1B9ufnoquX5xqCR/NHaMfBZliYgPa8/e5sK")
+            .password("{bcrypt}$2a$10$GlpFG1Ml3U9AvkOu0D1B9ufnoquX5xqCR/NHaMfBZliYgPa8/e5sK")
             .roles("USER");
 
-        auth.jdbcAuthentication()
-            .dataSource(dataSource)
-            .withDefaultSchema()
-            .withUser("admin")
-            .password("$2a$10$kF9qWGfBqKqqO9PuG/XLZuuPq601zbtV3F4v8.mYVX0ilBsvbjjpW")
-            .roles("ADMIN");
+        return authenticationManagerBuilder.build();
     }
 
 }

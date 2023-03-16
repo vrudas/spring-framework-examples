@@ -1,13 +1,13 @@
-package io.sfe.bootsecurity;
+package io.sfe.methodsecurity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SecuredNoteApplication {
+public class MethodAuthorizationApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SecuredNoteApplication.class, args);
+        SpringApplication.run(MethodAuthorizationApplication.class, args);
     }
 
 }
