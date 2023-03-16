@@ -3,7 +3,7 @@ package io.sfe.jwt.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 
@@ -12,9 +12,8 @@ public class CommonSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-
 
     @Bean
     public UserDetailsManager userDetailsService(
@@ -23,11 +22,11 @@ public class CommonSecurityConfig {
         return authenticationManagerBuilder
             .inMemoryAuthentication()
                 .withUser("user")
-                .password("$2a$10$xxDN8JuT21uFSH0LeelhKuzv42tXjKKCDgY9gHO4/159cKG1ChICi")
+                .password("{bcrypt}$2a$10$GlpFG1Ml3U9AvkOu0D1B9ufnoquX5xqCR/NHaMfBZliYgPa8/e5sK")
                 .roles("USER")
             .and()
                 .withUser("admin")
-                .password("$2a$10$kF9qWGfBqKqqO9PuG/XLZuuPq601zbtV3F4v8.mYVX0ilBsvbjjpW")
+                .password("{bcrypt}$2a$10$ku.DZ5JqOy/dgFgAZkwcSuiaMMCmOt8pVmerZDM5lTWO44MHGCMcC")
                 .roles("ADMIN")
             .and()
             .getUserDetailsService();
