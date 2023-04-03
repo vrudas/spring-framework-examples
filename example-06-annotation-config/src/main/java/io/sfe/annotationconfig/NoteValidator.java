@@ -12,7 +12,7 @@ public class NoteValidator {
             throw new IllegalArgumentException("Note is null");
         }
 
-        String noteText = Objects.requireNonNullElse(note.getText(), "");
+        String noteText = Objects.requireNonNullElse(note.text(), "");
 
         if (noteText.isBlank()) {
             throw new IllegalArgumentException("Note text is blank");
