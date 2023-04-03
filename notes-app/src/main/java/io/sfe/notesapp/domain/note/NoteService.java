@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
-
 @Service
 public class NoteService {
 
@@ -30,7 +28,7 @@ public class NoteService {
 
         return StreamSupport.stream(allNotes.spliterator(), false)
             .map(noteEntity -> new Note(noteEntity.getId(), noteEntity.getText()))
-            .collect(toUnmodifiableList());
+            .toList();
     }
 
     public Note findById(int id) {
