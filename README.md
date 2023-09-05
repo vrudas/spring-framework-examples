@@ -1,5 +1,5 @@
 # Spring Framework Examples
-Educational project with Spring Framework examples. Used for lectures at courses.
+An educational project with Spring Framework examples. Used for lectures at courses.
 
 ## Related links
 - [Spring Framework Documentation](https://docs.spring.io/spring-framework/docs/current/reference/html/)
@@ -24,17 +24,17 @@ Educational project with Spring Framework examples. Used for lectures at courses
 
 ## Example 21 - JWT Instructions
 
-Please note that Intellij IDEA [HTTP Client](https://blog.jetbrains.com/idea/2020/09/at-your-request-use-the-http-client-in-intellij-idea-for-spring-boot-restful-web-services/) was used to perform requests in code snippets
+Please note that IntelliJ IDEA [HTTP Client](https://blog.jetbrains.com/idea/2020/09/at-your-request-use-the-http-client-in-intellij-idea-for-spring-boot-restful-web-services/) was used to perform requests in code snippets
 
-Please follow those steps to perform demo of how to get JWT token for existing user:
+Please follow the steps to perform a demo of how to get a JWT token for an existing user:
 
-- perform login action
-```http request
+- Perform login action
+```HTTP request
 POST http://localhost:8080/login?username=user&password=user
 Accept: application/json
 ```
 
-- extract generated Bearer token from a response header `Authorization: Bearer <token>`
+- Extract the generated Bearer token from a response header `Authorization: Bearer <token>`
 ```
 HTTP/1.1 200
 Vary: Origin
@@ -55,8 +55,8 @@ Connection: keep-alive
 <Response body is empty>
 ```
 
-- use generated Bearer token to perform call to an endpoint by providing `Authorization: Bearer <token>` header
-```http request
+- Use the generated Bearer token to perform the call to an endpoint by providing the `Authorization: Bearer <token>` header
+```HTTP request
 GET http://localhost:8080/users/me
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjc4ODM1NjE5fQ.cRZ1ob4XZfG5RnU0jl2kdPihc9Ln-BlEOe7hbuwZJWp-UuQSGukI_57pWrBcdaCWPN-8luCF08YWU74tUErOFg
