@@ -61,3 +61,6 @@ GET http://localhost:8080/users/me
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjc4ODM1NjE5fQ.cRZ1ob4XZfG5RnU0jl2kdPihc9Ln-BlEOe7hbuwZJWp-UuQSGukI_57pWrBcdaCWPN-8luCF08YWU74tUErOFg
 ```
+
+## Contribution statistic
+![Alt](https://repobeats.axiom.co/api/embed/ea96de66d99f0b7879faf1dd630824e3b2339f78.svg "Repobeats analytics image")
