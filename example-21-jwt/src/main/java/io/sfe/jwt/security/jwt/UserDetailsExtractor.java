@@ -31,7 +31,7 @@ public class UserDetailsExtractor {
     Optional<UserDetails> extractFromToken(String token) {
         try {
             var claimsJws = parseToken(token);
-            var username = claimsJws.getBody().getSubject();
+            var username = claimsJws.getPayload().getSubject();
 
             return Optional.ofNullable(userDetailsService.loadUserByUsername(username));
         } catch (Exception e) {
@@ -40,9 +40,9 @@ public class UserDetailsExtractor {
     }
 
     private Jws<Claims> parseToken(String token) {
-        return Jwts.parserBuilder()
-            .setSigningKey(Keys.hmacShaKeyFor(encodeSecretKey(secretKey)))
+        return Jwts.parser()
+            .verifyWith(Keys.hmacShaKeyFor(encodeSecretKey(secretKey)))
             .build()
-            .parseClaimsJws(token);
+            .parseSignedClaims(token);
     }
 }
