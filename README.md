@@ -1,3 +1,5 @@
+<img src="https://github.com/vrudas/spring-framework-examples/assets/8240025/9d664274-e5b0-431b-8c09-9c29d9b92fa0" alt="Spring Logo" width="256"/>
+
 # Spring Framework Examples
 An educational project with Spring Framework examples. Used for lectures at courses.
 
