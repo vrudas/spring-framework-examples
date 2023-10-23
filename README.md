@@ -1,7 +1,13 @@
-<img src="https://github.com/vrudas/spring-framework-examples/assets/8240025/9d664274-e5b0-431b-8c09-9c29d9b92fa0" alt="Spring Logo" width="256"/>
+<p align="center">
+    <img src="https://github.com/vrudas/spring-framework-examples/assets/8240025/9d664274-e5b0-431b-8c09-9c29d9b92fa0" alt="Spring Logo" width="256"/>
+</p>
 
-# Spring Framework Examples
-An educational project with Spring Framework examples. Used for lectures at courses.
+<h1 align="center">
+    Spring Framework Examples
+</h1>
+<p align="center">
+    An educational project with Spring Framework examples. Used for lectures at courses.
+</p>
 
 ## Related links
 - [Spring Framework Documentation](https://docs.spring.io/spring-framework/docs/current/reference/html/)
@@ -64,5 +70,9 @@ Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjc4ODM1NjE5fQ.cRZ1ob4XZfG5RnU0jl2kdPihc9Ln-BlEOe7hbuwZJWp-UuQSGukI_57pWrBcdaCWPN-8luCF08YWU74tUErOFg
 ```
 
-## Contribution statistic
-![Alt](https://repobeats.axiom.co/api/embed/ea96de66d99f0b7879faf1dd630824e3b2339f78.svg "Repobeats analytics image")
+<h2 align="center">
+    Contribution statistic
+</h2>
+<p align="center">
+    <img src="https://repobeats.axiom.co/api/embed/ea96de66d99f0b7879faf1dd630824e3b2339f78.svg" alt="Repobeats analytics image"/>
+</p>
