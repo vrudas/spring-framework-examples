@@ -19,9 +19,9 @@ dependencies {
     implementation 'org.webjars:bootstrap:5.3.7'
     implementation 'org.webjars:js-cookie:3.0.1'
 
-    implementation 'io.jsonwebtoken:jjwt-api:0.12.7'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.7'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.7'
+    implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
